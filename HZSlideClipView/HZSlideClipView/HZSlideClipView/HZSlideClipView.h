@@ -10,6 +10,11 @@
 
 @interface HZSlideClipView : UIView
 
-- (instancetype)initWithFrame:(CGRect)frame andTitleArray:(NSArray *)titleArr;
+- (instancetype)initWithFrame:(CGRect)frame 
+                andTitleArray:(NSArray *)titleArr
+              backgroundColor:(UIColor *)bgColor 
+                   titleColor:(UIColor *)textColor
+          maskBackgroundColor:(UIColor *)maskBgColor
+                  maskTitleColor:(UIColor *)maskTextColor;
 
 @end

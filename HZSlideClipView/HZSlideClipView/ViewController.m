@@ -20,7 +20,11 @@
     // Do any additional setup after loading the view, typically from a nib.
     
     HZSlideClipView *customView=[[HZSlideClipView alloc] initWithFrame:CGRectMake(0, 60, self.view.frame.size.width, 40) 
-                                                         andTitleArray:@[@"12",@"oo",@"hi",@"12"]];
+                                                         andTitleArray:@[@"12",@"oo",@"hi",@"12"]
+                                                       backgroundColor:[UIColor blueColor]
+                                                            titleColor:[UIColor orangeColor]
+                                                   maskBackgroundColor:[UIColor orangeColor] 
+                                                        maskTitleColor:[UIColor whiteColor]];
     [self.view addSubview:customView];
 }
 

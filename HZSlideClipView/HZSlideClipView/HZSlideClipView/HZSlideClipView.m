@@ -13,12 +13,20 @@
 @property (nonatomic,readwrite,assign) CGFloat subWidth;
 @property (nonatomic,readwrite,strong) UIView *showView;
 @property (nonatomic,readwrite,strong) UIView *clipView;
-@end
 
+
+@property (nonatomic,readwrite,strong) UIColor  *maskBgColor;
+@property (nonatomic,readwrite,strong) UIColor  *maskTitleColor;
+@end
 
 @implementation HZSlideClipView
 
-- (instancetype)initWithFrame:(CGRect)frame andTitleArray:(NSArray *)titleArr
+- (instancetype)initWithFrame:(CGRect)frame 
+                andTitleArray:(NSArray *)titleArr
+              backgroundColor:(UIColor *)bgColor 
+                   titleColor:(UIColor *)textColor
+          maskBackgroundColor:(UIColor *)maskBgColor
+               maskTitleColor:(UIColor *)maskTextColor
 {
     self = [super initWithFrame:frame];
     if (!self||
@@ -26,16 +34,19 @@
         return nil;
     }
     
-    self.backgroundColor = [UIColor orangeColor];
+    self.backgroundColor = bgColor;
+    self.maskBgColor=maskBgColor;
+    self.maskTitleColor=maskTextColor;
+    
     self.subWidth = self.frame.size.width / titleArr.count;
     self.dataList=[titleArr copy];
     
-//   添加label
+    //添加label
     for (int i = 0;i < titleArr.count ; i++)
     {
         UILabel *label=[self createLabel:titleArr[i]
                                 andFrame:CGRectMake(i*self.subWidth, 0, self.subWidth, self.frame.size.height)
-                                andColor:[UIColor redColor]];
+                                andColor:textColor];
         [self addSubview:label];
     }
     
@@ -80,12 +91,12 @@
 -(UIView *)showView{
     if (!_showView) {
         _showView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
-        //showview添加label
+        //添加label
         for (int i = 0; i < self.dataList.count ; i++)
         {
             UILabel *label=[self createLabel:self.dataList[i] 
                                     andFrame:CGRectMake(i*self.subWidth, 0, self.subWidth, self.frame.size.height) 
-                                    andColor:[UIColor blackColor]];
+                                    andColor:self.maskTitleColor];
             
             [self.showView addSubview:label];
         }
@@ -98,7 +109,7 @@
 -(UIView *)clipView{
     if (!_clipView) {
         _clipView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.subWidth, self.frame.size.height)];
-        _clipView.backgroundColor = [UIColor greenColor];
+        _clipView.backgroundColor = self.maskBgColor;
         _clipView.userInteractionEnabled = YES;
         //设置不显示超出的部分
         _clipView.clipsToBounds = YES;
